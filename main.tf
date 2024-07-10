@@ -103,12 +103,12 @@ resource "aws_instance" "web" {
   instance_type          = "t2.micro"
   subnet_id              = aws_subnet.my_subnet.id
   vpc_security_group_ids = [aws_security_group.my_security_group.id]
-  key_name               = "your-existing-key-pair-name"  # Replace with your key pair name
+  key_name               = "akira"  # Replace with your key pair name
 
 
   associate_public_ip_address = true
 
   tags = {
-    Name = "WebServer111"
+    Name = "iverson_server"
   }
 }
