@@ -119,8 +119,8 @@ resource "aws_instance" "web" {
 
   provisioner "remote-exec" {
     inline = [
-      "chmod +x /tmp/apache_install.sh",
-      "/tmp/apache_install.sh",
+      "chmod +x /tmp/apache_install_.sh",
+      "/tmp/apache_install_.sh",
     ]
   }
 
