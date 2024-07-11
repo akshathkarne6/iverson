@@ -117,7 +117,7 @@ resource "aws_instance" "web" {
     user        = "ec2-user"
     host        = "${aws_instance.web.public_ip}"
     private_key = file("${path.module}/apache.pem")
-    port        = 80
+    port        = 22
   }
   
   provisioner "file" {

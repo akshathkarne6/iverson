@@ -1,7 +1,9 @@
 name: Terraform plan and Apply
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   terraform:
@@ -26,8 +28,8 @@ jobs:
           echo "${{ secrets.PRIVATE_KEY }}" > apache.pem
           chmod 600 apache.pem
 
-      # - name: show apache file
-      #   run: cat apache
+      - name: show apache file
+        run: ls
 
       - name: Terraform init
         run: terraform init
