@@ -124,11 +124,16 @@ resource "aws_instance" "web" {
   #   destination = "/tmp/apache_install_.sh"
   # }
 
+#  provisioner "remote-exec" {
+#   inline = [
+#      "chmod +x /tmp/apache_install_.sh",
+#      "/tmp/apache_install_.sh",
+#    ]
+#  }
+
   provisioner "remote-exec" {
     inline = [
-      "chmod +x /tmp/apache_install_.sh",
-      "/tmp/apache_install_.sh",
-    ]
+      script = "./apache_install_.sh"
   }
 
   associate_public_ip_address = true
