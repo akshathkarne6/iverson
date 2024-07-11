@@ -1,7 +1,9 @@
 name: Terraform plan and Apply
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
    
 jobs:
   terraform:
