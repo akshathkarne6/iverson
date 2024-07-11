@@ -25,6 +25,9 @@ jobs:
         run: |
           echo "${{ secrets.PRIVATE_KEY }}" > apache
 
+      - name: show apache file
+        run: cat apache
+
       - name: Terraform init
         run: terraform init
 
