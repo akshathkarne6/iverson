@@ -21,11 +21,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: us-east-1
 
-      - name: Replace private key in main.tf
+      - name: Create apache file with contents of secret
         run: |
-          sed -i -e '/###Private_key/{r /dev/stdin' -e 'd' -e '}' main.tf <<'EOF'
-          ${{ secrets.PRIVATE_KEY }}
-          EOF
+          echo "${{ secrets.PRIVATE_KEY }}" > apache
 
       - name: Terraform init
         run: terraform init
