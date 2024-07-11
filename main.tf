@@ -113,7 +113,7 @@ resource "aws_instance" "web" {
   }
   
   provisioner "file" {
-    source      = "apache_install.sh"
+    source      = "apache_install_.sh"
     destination = "/tmp/apache_install.sh"
   }
 
