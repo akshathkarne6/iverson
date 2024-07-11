@@ -93,8 +93,8 @@ resource "aws_security_group" "my_security_group" {
 }
 
 resource "aws_key_pair" "deployer" {
-  key_name   = "akira"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDOiAGKuE0PUoxdiQWRnBrUFAj/FMGMIO4ZoNoVwWxbq0q1F1DjY0reMvO/cNMmyvr7+24Unx7z7GV/M08uwacXfs1nZ21mZ8KBxitExOkwdpxQBSnFhvwzhPvGhZ+bEp3SZ2E5MaEUgC8dqhkHPsLLcqiMOH60evSGsTe4KzjxnLt+F5X6zI3RY5q0mywepgapuTuq0WPLQ4/ig9MtjxTYay77WCZwu+TIi4knLSVNR2Bvwp4TJFyDd4owTfiFztHelXeSUsMiYIc7vAFqCUBC8Ep0mhm7nCuyjOAYN903pYt65+oFkzMaQ2TbsDI0aGtICg6nKRIAhz+sfrbkQOu0JJFHv6AQZOV0QuEcFORlQxnAK5fedlB6vhv60nLB2RqEGIP7+DQUxusiXd7kq6KSYMMjmhcoVHRDTgwYKacoxu2uJZ4qS8sECGupT5xFNS8qoJcsquoVL1yrA4Nz4EdAiKpVqBBes020X84cMvOyKAgFRc/r89T2xK8XEQJvq5M= akhiljahagirdar@akhils-MacBook-Pro.local"
+  key_name   = "apache"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDE2qjAj1jy0Uab1fvwEE3BO2iDg7Zu3iyfaZOvhQbp8CM1ofDGOIEjqY++/SLxYSrD4OPRixSk2BrOjZpdZsJ5Gm8uKNx+mFqtVR1pce+GhcwXi2t0pCBliRzh/fVDSjwjHuZ8qTewsTj9y/Arg8wDlde9SdTtJbjqS9hmSy3R/40f8MF1xffKmxzGZ3/x+GxwPpFPIyuKZESBOMdv4ZdRPEmknsZgDUbOeGyNQbiPGIBDGcr2xoE1xpUmbZjLSHEluRbLX4KGimmkIJWeEpINzxK3ZTWqhfPhi4rYmnZcMhH/JN7xCuB59Ged1ar2yYv6QenrorFdPhz3SvksetmuGupMZaNdXnCNSDLoZjjt8NxHhovajjhCK4ZTqkMO3/BS9uJ7YynLM8JseWc9TkOzkYAkOi9ir3jEEan+vULEJrAzqbv0h+z3nHM9NOj7gp32sppK2epkb3wHhXija3xR1f2dZQVUxOdvanKyF7uZn3peBFIHL5w29Q1Mhwwila8= akhiljahagirdar@akhils-MacBook-Pro.local"
 }
 
 # Launch an EC2 instance
@@ -103,8 +103,26 @@ resource "aws_instance" "web" {
   instance_type          = "t2.micro"
   subnet_id              = aws_subnet.my_subnet.id
   vpc_security_group_ids = [aws_security_group.my_security_group.id]
-  key_name               = "akira"  # Replace with your key pair name
+  key_name               = "apache"  # Replace with your key pair name
 
+  connection {
+    type        = "ssh"
+    user        = "root"
+    host        = "${aws_instance.web.public_ip}"
+    private_key = "###Private_key"
+  }
+  
+  provisioner "file" {
+    source      = "apache_install.sh"
+    destination = "/tmp/apache_install.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /tmp/apache_install.sh",
+      "/tmp/apache_install.sh",
+    ]
+  }
 
   associate_public_ip_address = true
 
