@@ -116,7 +116,7 @@ resource "aws_instance" "web" {
     type        = "ssh"
     user        = "ec2-user"
     host        = "${aws_instance.web.public_ip}"
-    private_key = file("${path.module}/apache")
+    private_key = "${file("/root/.ssh/apache")}"
   }
   
   # provisioner "file" {
