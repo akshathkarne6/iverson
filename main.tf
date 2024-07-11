@@ -107,7 +107,7 @@ resource "aws_instance" "web" {
 
   connection {
     type        = "ssh"
-    user        = "root"
+    user        = "ec2-user"
     host        = "${aws_instance.web.public_ip}"
     private_key = file("apache")
   }
