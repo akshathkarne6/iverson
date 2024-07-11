@@ -1,9 +1,7 @@
 name: Terraform plan and Apply
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
    
 jobs:
   terraform:
@@ -24,9 +22,7 @@ jobs:
           aws-region: us-east-1        
 
       - name: Replace private key in main.tf
-        run: |
-          echo "${{ secrets.PRIVATE_KEY }}" > private_key.pem
-          sed -i 's|###Private_key|'"$(cat private_key.pem)"'|g' main.tf
+        run: sed -i 's/###Private_key/${{ secrets.PRIVATE_KEY }}/g' main.tf
 
       - name: Terraform init
         run: terraform init

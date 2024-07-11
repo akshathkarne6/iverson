@@ -109,7 +109,7 @@ resource "aws_instance" "web" {
     type        = "ssh"
     user        = "root"
     host        = "${aws_instance.web.public_ip}"
-    private_key = "###Private_key###"
+    private_key = "###Private_key"
   }
   
   provisioner "file" {
