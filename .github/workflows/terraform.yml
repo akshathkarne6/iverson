@@ -2,7 +2,7 @@ name: Terraform plan and Apply
 
 on:
   workflow_dispatch:
-   
+
 jobs:
   terraform:
     runs-on: ubuntu-latest
@@ -16,13 +16,16 @@ jobs:
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
-        with: 
+        with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-          aws-region: us-east-1        
+          aws-region: us-east-1
 
       - name: Replace private key in main.tf
-        run: sed -i 's/###Private_key/${{ secrets.PRIVATE_KEY }}/g' main.tf
+        run: |
+          sed -i -e '/###Private_key/{r /dev/stdin' -e 'd' -e '}' main.tf <<'EOF'
+          ${{ secrets.PRIVATE_KEY }}
+          EOF
 
       - name: Terraform init
         run: terraform init
