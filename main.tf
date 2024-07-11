@@ -112,3 +112,7 @@ resource "aws_instance" "web" {
     Name = "iverson_"
   }
 }
+
+output "public_ip" {
+  value = aws_instance.web.public_ip
+}
