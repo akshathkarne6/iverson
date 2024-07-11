@@ -114,7 +114,7 @@ resource "aws_instance" "web" {
   
   provisioner "file" {
     source      = "apache_install_.sh"
-    destination = "/tmp/apache_install.sh"
+    destination = "/tmp/apache_install_.sh"
   }
 
   provisioner "remote-exec" {
