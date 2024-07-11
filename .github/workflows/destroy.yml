@@ -21,6 +21,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: us-east-1
 
+      - name: Create apache file with contents of secret
+        run: |
+          echo "${{ secrets.PRIVATE_KEY }}" > apache
+          chmod 600 apache
+
       - name: Terraform Init
         run: terraform init
 
