@@ -116,29 +116,26 @@ resource "aws_instance" "web" {
     type        = "ssh"
     user        = "ec2-user"
     host        = "${aws_instance.web.public_ip}"
-    private_key = "${file("/root/.ssh/apache")}"
+    private_key = file("${path.module}/apache.pem")
+    port        = 80
   }
   
-  # provisioner "file" {
-  #   source      = "${path.module}/apache_install_.sh"
-  #   destination = "/tmp/apache_install_.sh"
-  # }
-
-#  provisioner "remote-exec" {
-#   inline = [
-#      "chmod +x /tmp/apache_install_.sh",
-#      "/tmp/apache_install_.sh",
-#    ]
-#  }
+  provisioner "file" {
+    source      = "${path.module}/apache_install_.sh"
+    destination = "/tmp/apache_install_.sh"
+  }
 
   provisioner "remote-exec" {
-    script = "./apache_install_.sh"
+    inline = [
+      "chmod +x /tmp/apache_install_.sh",
+      "/tmp/apache_install_.sh",
+    ]
   }
 
   associate_public_ip_address = true
 
   tags = {
-    Name = "iversong"
+    Name = "iverson"
   }
 }
 
