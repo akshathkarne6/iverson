@@ -112,10 +112,10 @@ resource "aws_instance" "web" {
     private_key = file("apache")
   }
   
-  provisioner "file" {
-    source      = "apache_install_.sh"
-    destination = "/tmp/apache_install_.sh"
-  }
+  # provisioner "file" {
+  #   source      = "apache_install_.sh"
+  #   destination = "/tmp/apache_install_.sh"
+  # }
 
   provisioner "remote-exec" {
     inline = [
