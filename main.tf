@@ -132,8 +132,7 @@ resource "aws_instance" "web" {
 #  }
 
   provisioner "remote-exec" {
-    inline = [
-      script = "./apache_install_.sh"
+    script = "./apache_install_.sh"
   }
 
   associate_public_ip_address = true
