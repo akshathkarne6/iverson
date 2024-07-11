@@ -109,13 +109,13 @@ resource "aws_instance" "web" {
     type        = "ssh"
     user        = "ec2-user"
     host        = "${aws_instance.web.public_ip}"
-    private_key = file("apache")
+    private_key = file("${path.module}/apache")
   }
   
-  # provisioner "file" {
-  #   source      = "apache_install_.sh"
-  #   destination = "/tmp/apache_install_.sh"
-  # }
+  provisioner "file" {
+    source      = "${path.module}/apache_install_.sh"
+    destination = "/tmp/apache_install_.sh"
+  }
 
   provisioner "remote-exec" {
     inline = [
