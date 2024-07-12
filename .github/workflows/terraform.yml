@@ -28,7 +28,7 @@ jobs:
           echo "${{ secrets.PRIVATE_KEY }}" > apache.pem
           chmod 400 apache.pem
 
-      - name: show apache file
+      - name: show apache fileter
         run: ls
 
       - name: Terraform init
