@@ -23,10 +23,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: us-east-1
 
-      - name: Create apache file with contents of secret
-        run: |
-          echo "${{ secrets.PRIVATE_KEY }}" > apache.pem
-          chmod 400 apache.pem
+     # - name: Create apache file with contents of secret
+     #   run: |
+     #     echo "${{ secrets.PRIVATE_KEY }}" > apache.pem
+      #chmod 400 apache.pem
 
       - name: show apache fileter
         run: ls

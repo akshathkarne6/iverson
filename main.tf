@@ -112,25 +112,25 @@ resource "aws_instance" "web" {
   vpc_security_group_ids = [aws_security_group.my_security_group.id]
   key_name               = "apache"  # Replace with your key pair name
 
-  connection {
-    type        = "ssh"
-    user        = "ec2-user"
-    host        = "${aws_instance.web.public_ip}"
-    private_key = file("${path.module}/apache.pem")
-    port        = 22
-  }
+  #connection {
+  #  type        = "ssh"
+  #  user        = "ec2-user"
+  #  host        = "${aws_instance.web.public_ip}"
+  #  private_key = file("${path.module}/apache.pem")
+  #  port        = 22
+  #}
   
-  provisioner "file" {
-    source      = "${path.module}/apache_install_.sh"
-    destination = "/tmp/apache_install_.sh"
-  }
+  #provisioner "file" {
+  #  source      = "${path.module}/apache_install_.sh"
+  #  destination = "/tmp/apache_install_.sh"
+  #}
 
-  provisioner "remote-exec" {
-    inline = [
-      "chmod +x /tmp/apache_install_.sh",
-      "/tmp/apache_install_.sh",
-    ]
-  }
+  #provisioner "remote-exec" {
+  #  inline = [
+  #    "chmod +x /tmp/apache_install_.sh",
+  #    "/tmp/apache_install_.sh",
+  #  ]
+  #}
 
   associate_public_ip_address = true
 
