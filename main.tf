@@ -105,7 +105,7 @@ resource "aws_key_pair" "deployer" {
 }
 
 # Launch an EC2 instance
-resource "aws_instance" "web" {
+  resource "aws_instance" "web" {
   ami                    = "ami-06c68f701d8090592"
   instance_type          = "t2.micro"
   subnet_id              = aws_subnet.my_subnet.id
